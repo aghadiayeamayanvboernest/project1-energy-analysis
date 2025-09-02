@@ -12,7 +12,8 @@ dependencies = [
     "pyyaml",
     "python-dotenv",
     "scikit-learn",
-    "statsmodels"
+    "statsmodels",
+    "dotenv>=0.9.9",
 ]
 
 
