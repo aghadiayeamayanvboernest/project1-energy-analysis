@@ -1,0 +1,30 @@
+[project]
+name = "project1-energy-analysis"
+version = "0.1.0"
+description = "US Weather + Energy Analysis Pipeline"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "requests",
+    "pandas",
+    "plotly",
+    "streamlit",
+    "pyyaml",
+    "python-dotenv",
+    "scikit-learn",
+    "statsmodels"
+]
+
+
+[project.optional-dependencies]
+test = [
+    "pytest"
+]
+
+[build-system]
+requires = ["hatchling"]
+
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
