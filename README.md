@@ -1,14 +1,40 @@
-# US Weather + Energy Analysis Pipeline
+# US Weather & Energy Analysis Pipeline
 
-This project is a data pipeline that fetches, processes, analyzes, and visualizes weather and energy consumption data for major US cities. The goal is to demonstrate a production-ready data pipeline that can provide valuable insights for energy demand forecasting.
+[![Python Version](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![uv Compatible](https://img.shields.io/badge/Compatible%20with-uv-brightgreen)](https://github.com/astral-sh/uv)
 
-## Features
+## Overview
 
-- **Automated Data Fetching**: Daily and historical data fetching from NOAA (weather) and EIA (energy) APIs.
-- **Data Processing**: Cleans, transforms, and merges data from different sources.
-- **Data Quality Assurance**: Automatically checks for missing values, outliers, and data freshness.
-- **In-depth Analysis**: Provides analysis on correlation, seasonal patterns, and weekday/weekend trends.
-- **Interactive Dashboard**: A Streamlit dashboard with multiple visualizations to explore the data.
+This project is a comprehensive data pipeline designed to fetch, process, analyze, and visualize weather and energy consumption data for major US cities. It aims to provide valuable insights into the relationship between weather patterns and energy demand, enabling better energy demand forecasting and resource management. This pipeline is built with production-readiness in mind, emphasizing automation, data quality, and insightful analysis.
+
+## Key Features
+
+*   **Automated Data Acquisition:**
+    *   Fetches historical weather data from the NOAA API.
+    *   Acquires historical energy consumption data from the EIA API.
+*   **Robust Data Processing:**
+    *   Cleans, transforms, and merges data from NOAA and EIA.
+    *   Handles missing values and outliers to ensure data integrity.
+*   **Automated Data Quality Assurance:**
+    *   Implements checks for data freshness, completeness, and consistency.
+    *   Generates data quality reports to monitor data health.
+*   **In-Depth Data Analysis:**
+    *   Performs correlation analysis to quantify the relationship between weather and energy consumption.
+    *   Identifies seasonal patterns and trends in energy usage.
+    *   Analyzes weekday/weekend energy consumption patterns.
+*   **Interactive Data Visualization:**
+    *   Provides an interactive Streamlit dashboard for exploring the data.
+    *   Offers multiple visualizations, including maps, time series charts, scatter plots, and heatmaps.
+
+## Architecture
+
+The pipeline follows a modular architecture, with each component responsible for a specific task:
+
+1.  **Data Fetching:**  `src/data_fetcher.py` retrieves data from the NOAA and EIA APIs.
+2.  **Data Processing:** `src/data_processor.py` cleans, transforms, and merges the raw data.
+3.  **Data Analysis:** `src/analysis.py` performs statistical analysis and generates insights.
+4.  **Pipeline Orchestration:** `src/pipeline.py` orchestrates the entire pipeline, scheduling data fetching, processing, and analysis.
+5.  **Dashboard:** `dashboards/app.py` creates an interactive Streamlit dashboard for data exploration.
 
 ## Directory Structure
 
@@ -38,55 +64,80 @@ project1-energy-analysis/
 
 ## Prerequisites
 
-- Python 3.10+
-- `uv` package manager (can be installed with `pip install uv`)
+*   Python 3.10+
+*   `uv` package manager (recommended for faster dependency resolution and project setup)
 
-## Setup and Installation
+## Installation
 
 1.  **Clone the repository:**
+
     ```bash
     git clone <repository-url>
     cd project1-energy-analysis
     ```
 
-2.  **Set up API Keys:**
-    - Create a `.env` file in the project root.
-    - Add your NOAA and EIA API keys to the `.env` file as follows:
-      ```
-      NOAA_TOKEN=YOUR_NOAA_TOKEN_HERE
-      EIA_API_KEY=YOUR_EIA_API_KEY_HERE
-      ```
+2.  **Configure API Keys:**
+
+    *   Create a `.env` file in the project root directory.
+    *   Add your NOAA and EIA API keys to the `.env` file:
+
+        ```
+        NOAA_TOKEN=YOUR_NOAA_TOKEN_HERE
+        EIA_API_KEY=YOUR_EIA_API_KEY_HERE
+        ```
+
+        **Note:** It is crucial to keep your API keys secure.  Do not commit the `.env` file to your repository.
 
 3.  **Install Dependencies:**
-    - Use `uv` to install the required packages:
-      ```bash
-      uv pip install -e .[test]
-      ```
+
+    *   Use `uv` to install the project dependencies, including testing libraries:
+
+        ```bash
+        uv pip install -e .[test]
+        ```
 
 ## Usage
 
-### Running the Pipeline
+### Running the Data Pipeline
 
--   **To fetch 90 days of historical data:**
-    ```bash
-    python src/pipeline.py --historical
-    ```
+The `src/pipeline.py` script orchestrates the data fetching, processing, and analysis steps.
 
--   **To fetch the latest daily data:**
+*   **To run the pipeline and fetch the latest 90 days of historical data:**
+
     ```bash
     python src/pipeline.py
     ```
 
-### Running the Dashboard
+### Running the Streamlit Dashboard
 
--   To start the Streamlit dashboard, run:
+The `dashboards/app.py` script launches the interactive Streamlit dashboard.
+
+*   **To start the Streamlit dashboard:**
+
     ```bash
     streamlit run dashboards/app.py
     ```
 
-## Running Tests
+    The dashboard will open in your web browser, allowing you to explore the data and visualizations.
 
--   To run the test suite, use `pytest`:
+### Running Tests
+
+The `tests/test_pipeline.py` file contains unit tests for the data pipeline.
+
+*   **To run the test suite:**
+
     ```bash
     pytest
     ```
+
+    This will execute the unit tests and report any failures.
+
+## Contributing
+
+Contributions to this project are welcome! If you find a bug or have an idea for a new feature, please open an issue or submit a pull request.
+
+
+## Acknowledgements
+
+*   [NOAA](https://www.noaa.gov/) for providing weather data.
+*   [EIA](https://www.eia.gov/) for providing energy consumption data.

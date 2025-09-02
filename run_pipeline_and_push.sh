@@ -2,10 +2,10 @@
 cd /home/ernest/projects/project1-energy-analysis || exit
 
 # Run pipeline
-uv run src/pipeline.py
+/home/ernest/projects/project1-energy-analysis/.venv/bin/python src/pipeline.py
 
 # Stage changes
-git add data/processed/*
+git add data/
 
 # Only commit & push if there are changes
 if ! git diff --cached --quiet; then
