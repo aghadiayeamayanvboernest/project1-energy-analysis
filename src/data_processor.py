@@ -123,25 +123,28 @@ def process_all_data():
         return
 
     raw_files = os.listdir(RAW_DATA_DIR)
-    date_range_str = get_date_range_from_files(raw_files)
-    if not date_range_str:
-        logging.error("Could not determine date range from raw file names. Aborting.")
-        return
 
     for city_config in config['cities']:
         city_name = city_config['name']
         city_name_safe = city_name.replace(' ', '_')
         logging.info(f"Processing data for {city_name}...")
 
-        noaa_filename = f"noaa_{city_name_safe}_{date_range_str}.json"
-        eia_filename = f"eia_{city_name_safe}_{date_range_str}.json"
-
-        noaa_path = os.path.join(RAW_DATA_DIR, noaa_filename)
-        eia_path = os.path.join(RAW_DATA_DIR, eia_filename)
-
-        if not os.path.exists(noaa_path) or not os.path.exists(eia_path):
-            logging.warning(f"Missing NOAA or EIA file for {city_name}. Searched for {noaa_filename} and {eia_filename}. Skipping.")
+        # Find all files for the current city
+        city_files = [f for f in raw_files if city_name_safe in f]
+        if not city_files:
+            logging.warning(f"No raw data files found for {city_name}. Skipping.")
             continue
+
+        noaa_files = [f for f in city_files if 'noaa' in f]
+        eia_files = [f for f in city_files if 'eia' in f]
+
+        if not noaa_files or not eia_files:
+            logging.warning(f"Missing NOAA or EIA file for {city_name}. Skipping.")
+            continue
+
+        # Process the first available NOAA and EIA files
+        noaa_path = os.path.join(RAW_DATA_DIR, noaa_files[0])
+        eia_path = os.path.join(RAW_DATA_DIR, eia_files[0])
 
         noaa_df = process_noaa_data(noaa_path)
         eia_df = process_eia_data(eia_path)

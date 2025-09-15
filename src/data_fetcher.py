@@ -180,6 +180,47 @@ def fetch_historical_data(days=90):
     fetch_data_for_range(start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d'))
     logging.info("Historical data fetch complete.")
 
+def fetch_two_weeks_ahead():
+    """Fetches data for the next two weeks."""
+    logging.info("Starting data fetch for two weeks ahead.")
+    start_date = datetime.now()
+    end_date = start_date + timedelta(weeks=2)
+    fetch_data_for_range(start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d'))
+    logging.info("Two weeks ahead data fetch complete.")
+
 if __name__ == "__main__":
-    # Default behavior is to fetch the last 90 days of historical data.
-    fetch_historical_data(days=90)
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Fetch historical energy and weather data.")
+    parser.add_argument(
+        "--start-date",
+        help="Start date in YYYY-MM-DD format. Defaults to 90 days ago."
+    )
+    parser.add_argument(
+        "--end-date",
+        help="End date in YYYY-MM-DD format. Defaults to today."
+    )
+    parser.add_argument(
+        "--days",
+        type=int,
+        help="Number of past days to fetch data for. Overrides start/end dates if provided."
+    )
+    parser.add_argument(
+        "--two-weeks-ahead",
+        action="store_true",
+        help="Fetch data for the next two weeks."
+    )
+    args = parser.parse_args()
+
+    if args.days:
+        fetch_historical_data(days=args.days)
+    elif args.two_weeks_ahead:
+        fetch_two_weeks_ahead()
+    else:
+        end_date = datetime.now()
+        start_date = end_date - timedelta(days=90)
+
+        start_date_str = args.start_date if args.start_date else start_date.strftime('%Y-%m-%d')
+        end_date_str = args.end_date if args.end_date else end_date.strftime('%Y-%m-%d')
+
+        fetch_data_for_range(start_date_str, end_date_str)
