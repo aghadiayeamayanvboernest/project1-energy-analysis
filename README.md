@@ -5,7 +5,7 @@
 
 ## Overview
 
-This project is a comprehensive data pipeline designed to fetch, process, analyze, and visualize weather and energy consumption data for major US cities. It aims to provide valuable insights into the relationship between weather patterns and energy demand, enabling better energy demand forecasting and resource management. This pipeline is built with production-readiness in mind, emphasizing automation, data quality, and insightful analysis.
+Energy companies lose millions of dollars due to inaccurate demand forecasting. By combining weather data with energy consumption patterns, data scientists can help utilities optimize power generation, reduce waste, and lower costs. This project demonstrates your ability to build production-ready data pipelines that deliver real business value.
 
 ## Key Features
 

@@ -1,11 +1,11 @@
 =====================================
     Data Quality Report            
 =====================================
-Report generated on: 2025-09-02 13:08:52
+Report generated on: 2025-09-15 02:51:01
 
 --- 1. Data Freshness ---
 Latest data point found: 2025-08-30
-Days since latest data: 3
+Days since latest data: 16
 
 --- 2. Missing Values ---
 No missing values found.
